@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
-
+          <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet">
 </head>
-
 <body>
     <div class="container mt-5">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -24,125 +22,140 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="productos" role="tabpanel" aria-labelledby="productos-tab">
-                <div class="row mt-3">
-                    <div class="col-md-4">
-                        <h2>Registrar Producto</h2>
-                        <form id="productForm">
+                <div class="table-container mt-3">
+                    <div class="toolbar mb-3">
+                        <input type="search" class="form-control w-25" data-table="products" placeholder="Buscar...">
+                        <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#productForm">Nuevo Producto</button>
+                    </div>
+                    <table class="table" id="productsTable">
+                        <thead>
+                            <tr>
+                                <th data-sort="name">Nombre</th>
+                                <th data-sort="price">Precio</th>
+                                <th data-sort="stock">Stock</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="offcanvas offcanvas-end" id="productForm">
+                    <div class="offcanvas-header">
+                        <h5>Nuevo Producto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <form id="productFormContent">
+                            <input type="hidden" name="id">
                             <div class="mb-3">
                                 <label for="productName" class="form-label">Nombre del Producto</label>
-                                <input type="text" class="form-control" id="productName" required>
+                                <input type="text" class="form-control" id="productName" name="name" required>
                             </div>
                             <div class="mb-3">
                                 <label for="productPrice" class="form-label">Precio</label>
-                                <input type="number" class="form-control" id="productPrice" required>
+                                <input type="number" class="form-control" id="productPrice" name="price" required>
                             </div>
                             <div class="mb-3">
                                 <label for="productStock" class="form-label">Stock Inicial</label>
-                                <input type="number" class="form-control" id="productStock" required>
+                                <input type="number" class="form-control" id="productStock" name="stock" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Registrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
                         </form>
-                    </div>
-                    <div class="col-md-8">
-                        <h2>Listado de Productos</h2>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Precio</th>
-                                    <th>Stock</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="productTableBody">
-                                <!-- Productos registrados aparecerán aquí -->
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
+
             <div class="tab-pane fade" id="clientes" role="tabpanel" aria-labelledby="clientes-tab">
-                <div class="row mt-3">
-                    <div class="col-md-4">
-                        <h2>Registrar Cliente</h2>
-                        <form id="clientForm">
+                <div class="table-container mt-3">
+                    <div class="toolbar mb-3">
+                        <input type="search" class="form-control w-25" data-table="clients" placeholder="Buscar...">
+                        <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#clientForm">Nuevo Cliente</button>
+                    </div>
+                    <table class="table" id="clientsTable">
+                        <thead>
+                            <tr>
+                                <th data-sort="name">Nombre</th>
+                                <th data-sort="email">Email</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clientTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="offcanvas offcanvas-end" id="clientForm">
+                    <div class="offcanvas-header">
+                        <h5>Nuevo Cliente</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <form id="clientFormContent">
+                            <input type="hidden" name="id">
                             <div class="mb-3">
                                 <label for="clientName" class="form-label">Nombre del Cliente</label>
-                                <input type="text" class="form-control" id="clientName" required>
+                                <input type="text" class="form-control" id="clientName" name="name" required>
                             </div>
                             <div class="mb-3">
                                 <label for="clientEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="clientEmail" required>
+                                <input type="email" class="form-control" id="clientEmail" name="email" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Registrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
                         </form>
-                    </div>
-                    <div class="col-md-8">
-                        <h2>Listado de Clientes</h2>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Email</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="clientTableBody">
-                                <!-- Clientes registrados aparecerán aquí -->
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
             <div class="tab-pane fade" id="ventas" role="tabpanel" aria-labelledby="ventas-tab">
-                <div class="row mt-3">
-                    <div class="col-md-4">
-                        <h2>Registrar Venta</h2>
-                        <form id="saleForm">
+                <div class="table-container mt-3">
+                    <div class="toolbar mb-3">
+                        <input type="search" class="form-control w-25" data-table="sales" placeholder="Buscar...">
+                        <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#saleForm">Nueva Venta</button>
+                    </div>
+                    <table class="table" id="salesTable">
+                        <thead>
+                            <tr>
+                                <th data-sort="product">Producto</th>
+                                <th data-sort="customer">Cliente</th>
+                                <th data-sort="quantity">Cantidad</th>
+                                <th data-sort="total">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="saleTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="offcanvas offcanvas-end" id="saleForm">
+                    <div class="offcanvas-header">
+                        <h5>Nueva Venta</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <form id="saleFormContent">
+                            <input type="hidden" name="id">
                             <div class="mb-3">
                                 <label for="saleProduct" class="form-label">Producto</label>
-                                <select class="form-select" id="saleProduct" required>
-                                    <!-- Productos aparecerán aquí -->
-                                </select>
+                                <select class="form-control" id="saleProduct" name="product" required></select>
                             </div>
                             <div class="mb-3">
                                 <label for="saleCustomer" class="form-label">Cliente</label>
-                                <select class="form-select" id="saleCustomer" required>
-                                    <!-- Clientes aparecerán aquí -->
-                                </select>
+                                <select class="form-control" id="saleCustomer" name="customer" required></select>
                             </div>
                             <div class="mb-3">
                                 <label for="saleQuantity" class="form-label">Cantidad</label>
-                                <input type="number" class="form-control" id="saleQuantity" required>
+                                <input type="number" class="form-control" id="saleQuantity" name="quantity" required min="1">
                             </div>
-                            <button type="submit" class="btn btn-primary">Registrar Venta</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
                         </form>
-                    </div>
-                    <div class="col-md-8">
-                        <h2>Listado de Ventas</h2>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Producto</th>
-                                    <th>Cliente</th>
-                                    <th>Cantidad</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody id="saleTableBody">
-                                <!-- Ventas registradas aparecerán aquí -->
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/models/Product.js"></script>
     <script src="js/models/Customer.js"></script>
     <script src="js/models/Sale.js"></script>
     <script src="js/app.js"></script>
 </body>
-
 </html>

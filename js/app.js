@@ -6,6 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const saleForm = document.getElementById('saleForm');
     const saleTableBody = document.getElementById('saleTableBody');
 
+    // Load sale options when sales tab is activated
+    document.getElementById('ventas-tab').addEventListener('click', () => {
+        loadSaleFormOptions();
+    });
+
     // Registrar productos
     productForm.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -152,4 +157,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Llamar a la función para cargar las opciones al cargar la página
     loadSaleFormOptions();
+});
+
+// Search functionality
+function searchTable(tableId, query) {
+    const table = document.getElementById(tableId);
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+
+    rows.forEach(row => {
+        const text = Array.from(row.cells)
+            .map(cell => cell.textContent.toLowerCase())
+            .join(' ');
+        const isMatch = text.includes(query.toLowerCase());
+        row.style.display = isMatch ? '' : 'none';
+    });
+}
+
+// Sort functionality
+function sortTable(tableId, column, direction) {
+    const table = document.getElementById(tableId);
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+
+    const sortedRows = rows.sort((a, b) => {
+        const aValue = a.querySelector(`td[data-${column}]`).dataset[column];
+        const bValue = b.querySelector(`td[data-${column}]`).dataset[column];
+
+        if (column === 'price' || column === 'stock') {
+            return direction === 'asc' 
+                ? parseFloat(aValue) - parseFloat(bValue)
+                : parseFloat(bValue) - parseFloat(aValue);
+        }
+
+        return direction === 'asc'
+            ? aValue.localeCompare(bValue)
+            : bValue.localeCompare(aValue);
+    });
+
+    tbody.innerHTML = '';
+    sortedRows.forEach(row => tbody.appendChild(row));
+}
+
+// Event Listeners
+document.querySelectorAll('input[data-table]').forEach(input => {
+    input.addEventListener('input', (e) => {
+        const tableId = e.target.dataset.table + 'Table';
+        searchTable(tableId, e.target.value);
+    });
+});
+
+document.querySelectorAll('th[data-sort]').forEach(th => {
+    th.addEventListener('click', (e) => {
+        const column = e.target.dataset.sort;
+        const currentDir = e.target.classList.contains('sort-asc') ? 'desc' : 'asc';
+
+        document.querySelectorAll('th').forEach(el => 
+            el.classList.remove('sort-asc', 'sort-desc')
+        );
+        e.target.classList.add(`sort-${currentDir}`);
+
+        const tableId = e.target.closest('table').id;
+        sortTable(tableId, column, currentDir);
+    });
 });
